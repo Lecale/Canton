@@ -42,6 +42,8 @@ namespace Canton
                 participation[i] = par[i];
         }
 
+        #region Swiss.Result.Bye.Participation
+
         public void setResult(int rnd, int op, float _score, int _handicap = 0, int BW = 1)
         {
             rnd--; //0 based arrary as always
@@ -68,6 +70,10 @@ namespace Canton
         public void setSwiss(float s)
         {
             Swiss = s;
+        }
+        public void setInitSwiss(float s)
+        {
+            InitSwiss = s;
         }
         public float getResult(int rnd)
         {
@@ -96,9 +102,153 @@ namespace Canton
         {
             Seed = s;
         }
+        public int getSeed()
+        { return Seed; }
+        public string getName()
+        {
+            return Name;
+        }
+        public int getRating()
+        {
+            return Rating;
+        }
+
+        public bool getParticipation(int i)
+        {
+            try
+            {
+                return participation[i];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("EXCEPTION in getParticipation rnd " + i);
+                Console.WriteLine(e.Message);
+                Console.WriteLine("par " + participation.Length);
+                return false;
+            }
+        }
+        public void setOpponent(int i, int rnd)
+        {
+            opponent[rnd] = i;
+        }
+        public int nBye()
+        {
+            int n = 0;
+            for (int i = 0; i < participation.Length; i++)
+                if (!participation[i])
+                    n++;
+            return n;
+        }
+        #endregion
+
+        #region Tiebreak
+        public int getOpponent(int i)
+        {
+            return opponent[i];
+        }
+
+        public int getAdjHandi(int i)   //ATTENTION - Not appropriate for SwissHandicap
+        {
+            //if black substract handicap , if White add handicap to SOS
+            try
+            {
+                if (BlackWhite[i] == 1)
+                    return handi[i] * BlackWhite[i];
+                else
+                    return handi[i] * -1;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("EXCEPTION in getAdjHandi rnd " + i);
+                Console.WriteLine(e.Message);
+                Console.WriteLine("handi " + handi.Length);
+                Console.WriteLine("BlackWhite " + BlackWhite.Length);
+                return 0;
+            }
+        }
+        #endregion
+        public int[] GetOpposition()
+        {
+            return opponent;
+        }
+        public override bool Equals(System.Object obj)
+        {
+            if (obj == null)
+                return false;
+            try
+            {
+                Player p = (Player)obj;
+
+                if (Seed > 0)
+                {
+                    if (Seed == p.Seed)
+                        return true;
+                }
+                if (EGDPin == p.EGDPin)
+                    return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return false;
+        }
+        public static void SetTiebreakers(List<string> _tie)
+        {
+            Tiebreaker = _tie;
+        }
+        public float qSc()  //What is this?
+        {
+            return Swiss - InitSwiss;
+        }
+
+
 
         public int CompareTo(Player p)
         {
+            if (p.Swiss > Swiss)
+                return 1;
+            if (p.Swiss == Swiss)
+            {
+                foreach (string tie in Tiebreaker)
+                {
+                    if (tie.Equals("SOS"))
+                    {
+                        if (p.SOS > SOS)
+                            return 1;
+                        if (p.SOS < SOS)
+                            return -1;
+                    }
+                    if (tie.Equals("SOSOS"))
+                    {
+                        if (p.SOSOS > SOSOS)
+                            return 1;
+                        if (p.SOSOS < SOSOS)
+                            return -1;
+                    }
+                    if (tie.Equals("MOS"))
+                    {
+                        if (p.MOS > MOS)
+                            return 1;
+                        if (p.MOS < MOS)
+                            return -1;
+                    }
+                    if (tie.Equals("SODOS"))
+                    {
+                        //SODOS should be split by Wins first
+                        if (p.qSc() > qSc())
+                            return 1;
+                        if (p.qSc() < qSc())
+                            return -1;
+                        //wins are even
+                        if (p.SODOS > SODOS)
+                            return 1;
+                        if (p.SODOS < SODOS)
+                            return -1;
+                    }
+                }
+                return 0;
+            }
             return -1;
         }
     }
