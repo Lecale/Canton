@@ -4,3 +4,4 @@ c:\users\u0159027.ten\documents\visual studio 2017\Projects\Canton\Canton\bin\De
 c:\users\u0159027.ten\documents\visual studio 2017\Projects\Canton\Canton\bin\Debug\Canton.pdb
 c:\users\u0159027.ten\documents\visual studio 2017\Projects\Canton\Canton\obj\Debug\Canton.exe
 c:\users\u0159027.ten\documents\visual studio 2017\Projects\Canton\Canton\obj\Debug\Canton.pdb
+c:\users\u0159027.ten\documents\visual studio 2017\Projects\Canton\Canton\bin\Debug\Ionic.Zip.dll
