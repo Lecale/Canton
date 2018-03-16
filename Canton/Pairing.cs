@@ -134,8 +134,7 @@ namespace Canton
                     s = "0:0";
                     break;
             }
-            return "";
-//            return white.ToFile() + "\t" + s + "\t" + black.ToFile() + "\t" + " h" + setting;
+            return white.ToFile() + "\t" + s + "\t" + black.ToFile() + "\t" + " h" + setting;
         }
 
         public float WhiteScore()
