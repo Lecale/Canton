@@ -345,9 +345,9 @@ namespace Canton
             {
                 AllPlayers[i - 1].SetSeed(i);
                 //set initial mms
-                int gap = nTopBar - AllPlayers[i - 1].getERating();
+                int gap = nTopBar - AllPlayers[i - 1].getRating();
                 gap = gap / nGradeWidth;
-                if (gap >= 0 && AllPlayers[i - 1].topBar == false)
+                if (gap >= 0)
                     gap++;
                 AllPlayers[i - 1].setInitSwiss(100 - gap);
 
@@ -409,7 +409,7 @@ namespace Canton
         }
         public void previewFloor(bool SetFloor = false)
         {
-            if (RatingFloor)
+            /*if (RatingFloor)
             {
                 int tCount = 0;
                 foreach (Player p in AllPlayers)
@@ -441,7 +441,7 @@ namespace Canton
                         previewFloor(true);
                     }
                 }
-            }
+            }*/
         }
         public void previewTopBar(bool SetBar = false)
         {
@@ -748,18 +748,12 @@ namespace Canton
             {
                 Console.WriteLine("Please enter the name of the working folder for the tournament.");
                 Console.WriteLine("This path should be relative to the exe file.");
-                if (Macintosh)
-                    workDirectory = exeDirectory + "/" + Console.ReadLine().Trim();
-                else
-                    workDirectory = exeDirectory + "\\" + Console.ReadLine().Trim();
+                workDirectory = exeDirectory + "\\" + Console.ReadLine().Trim();
             }
             catch (Exception e) { GenerateTemplateInputFile(); }
             if (Directory.Exists(workDirectory) == false)
                 Directory.CreateDirectory(workDirectory);
-            if (Macintosh)
-                workDirectory += "/";
-            else
-                workDirectory += "\\";
+            workDirectory += "\\";
             Console.WriteLine("Working directory is: " + workDirectory);
             //does saved data exist
             if (File.Exists(workDirectory + "settings.txt") &&

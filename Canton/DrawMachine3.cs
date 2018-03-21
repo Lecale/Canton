@@ -47,16 +47,16 @@ namespace Canton
             //end DO WE NEED
             _Split = new List<SplitLayer>();
             //populate Split layers which use Seed and not Deed
-            _Split.Add(new SplitLayer(plys[0].getMMS(), plys[0].Seed));
+            _Split.Add(new SplitLayer(plys[0].getSwiss(), plys[0].Seed));
             for (int i = 1; i < plys.Count; i++)
             {
-                if (plys[i].getMMS() == _Split[_Split.Count - 1].MMSKey)
+                if (plys[i].getSwiss() == _Split[_Split.Count - 1].SwissKey)
                 {
                     _Split[_Split.Count - 1].Add(plys[i].Seed);
                 }
                 else
                 {
-                    _Split.Add(new SplitLayer(plys[i].getMMS(), plys[i].Seed));
+                    _Split.Add(new SplitLayer(plys[i].getSwiss(), plys[i].Seed));
                 }
             }
             if (Verbose) DebugSplit();

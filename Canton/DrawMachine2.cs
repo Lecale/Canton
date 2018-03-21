@@ -46,16 +46,16 @@ namespace Canton
             //end DO WE NEED
             Fold = new List<FoldLayer>();
             //populate Fold layers which use Seed and not Deed
-            Fold.Add(new FoldLayer(plys[0].getMMS(), plys[0].Seed));
+            Fold.Add(new FoldLayer(plys[0].getSwiss(), plys[0].Seed));
             for (int i = 1; i < plys.Count; i++)
             {
-                if (plys[i].getMMS() == Fold[Fold.Count - 1].MMSKey)
+                if (plys[i].getSwiss() == Fold[Fold.Count - 1].MMSKey)
                 {
                     Fold[Fold.Count - 1].Add(plys[i].Seed);
                 }
                 else
                 {
-                    Fold.Add(new FoldLayer(plys[i].getMMS(), plys[i].Seed));
+                    Fold.Add(new FoldLayer(plys[i].getSwiss(), plys[i].Seed));
                 }
             }
             if (Verbose) DebugFold();

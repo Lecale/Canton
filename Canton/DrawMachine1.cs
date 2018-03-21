@@ -46,7 +46,7 @@ namespace Canton
             BigM.Add(new McLayer(plys[1].getSwiss(), plys[1].Deed));
             for (int i = 2; i < plys.Count; i++)
             {
-                if (plys[i].getSwiss() == BigM[BigM.Count - 1].MMSKey)
+                if (plys[i].getSwiss() == BigM[BigM.Count - 1].SwissKey)
                 {
                     BigM[BigM.Count - 1].Add(plys[i].Deed);
                 }

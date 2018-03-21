@@ -46,16 +46,16 @@ namespace Canton
             //end DO WE NEED
             _Monrad = new List<MonradLayer>();
             //populate Split layers which use Seed and not Deed
-            _Monrad.Add(new MonradLayer(plys[0].getMMS(), plys[0].Seed));
+            _Monrad.Add(new MonradLayer(plys[0].getSwiss(), plys[0].Seed));
             for (int i = 1; i < plys.Count; i++)
             {
-                if (plys[i].getMMS() == _Monrad[_Monrad.Count - 1].MMSKey)
+                if (plys[i].getSwiss() == _Monrad[_Monrad.Count - 1].SwissKey)
                 {
                     _Monrad[_Monrad.Count - 1].Add(plys[i].Seed);
                 }
                 else
                 {
-                    _Monrad.Add(new MonradLayer(plys[i].getMMS(), plys[i].Seed));
+                    _Monrad.Add(new MonradLayer(plys[i].getSwiss(), plys[i].Seed));
                 }
             }
             if (Verbose) DebugMonrad();
