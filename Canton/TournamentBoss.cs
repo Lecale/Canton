@@ -221,7 +221,6 @@ namespace Canton
             {
                 float _SOS = 0;
                 float _MOS = 0; //do not calculate if rnd <3
-                float _OPERA = 0;
                 float _SODOS = 0;
                 float maxSOS = -999;
                 float minSOS = 999;
@@ -445,7 +444,7 @@ namespace Canton
         }
         public void previewTopBar(bool SetBar = false)
         {
-            if (TopBar)
+         /*   if (TopBar)
             {
                 int tCount = 0;
                 foreach (Player peter in AllPlayers)
@@ -478,7 +477,7 @@ namespace Canton
                         previewTopBar(true);
                     }
                 }
-            }
+            }*/
         }
         public void GenerateResultsForRound(int rnd)
         {
@@ -784,20 +783,6 @@ namespace Canton
                 Console.WriteLine("Number of rounds set to 3 as it could not be read: " + e.Message);
                 nRounds = 3;
             }
-            Console.WriteLine("Top Group ? (yes / no )");
-            string top = Console.ReadLine();
-            if (top.ToUpper().StartsWith("Y"))
-            {
-                TopBar = true;
-                Console.WriteLine("Noted. Top Group Rating can be entered in Settings");
-            }
-            Console.WriteLine("Rating Floor ? (yes / no )");
-            string bot = Console.ReadLine();
-            if (bot.ToUpper().StartsWith("Y"))
-            {
-                RatingFloor = true;
-                Console.WriteLine("Noted. Rating Floor can be entered in Settings");
-            }
             Console.WriteLine("Handicap Adjustment ? (0 for none)");
             string adj = Console.ReadLine();
             try
@@ -885,12 +870,6 @@ namespace Canton
                     riter.WriteLine("Tournament Name:\t" + name);
                     riter.WriteLine("Rounds:\t" + nRounds);
                     riter.WriteLine("Pairing Strategy:\t" + PairingStrategy);
-                    if (TopBar)
-                    {
-                        riter.WriteLine("Top Bar Rating:\t");
-                        riter.WriteLine("Permit handicap above bar:\tNo");
-                    }
-                    if (RatingFloor) riter.WriteLine("Rating Floor:\t");
                     riter.WriteLine("Handicap Policy:\t" + HandiAdjust);
                     riter.WriteLine("Max Handicap:\t" + nMaxHandicap);
                     riter.WriteLine("Grade Width:\t" + nGradeWidth);
@@ -925,16 +904,7 @@ namespace Canton
                                 if (s[0].Contains("Max Handicap")) nMaxHandicap = int.Parse(s[1].Trim());
                                 if (s[0].Contains("Grade Width")) nGradeWidth = int.Parse(s[1].Trim());
                                 if (s[0].Contains("Debug") && s.Length > 1) Verbose = true;
-                                if (s[0].Contains("Top Bar Rating"))
-                                {
-                                    nTopBar = int.Parse(s[1].Trim());
-                                    TopBar = true;
-                                }
-                                if (s[0].Contains("Rating Floor"))
-                                {
-                                    nRatingFloor = int.Parse(s[1].Trim());
-                                    RatingFloor = true;
-                                }
+                               
                                 if (s[0].Contains("Permit handicap above bar"))
                                 {
                                     if (s[1].ToUpper().StartsWith("Y"))
